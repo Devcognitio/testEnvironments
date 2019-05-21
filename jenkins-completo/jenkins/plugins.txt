@@ -1,0 +1,4 @@
+blue-ocean:latest
+node-js:latest
+artifacory:latest
+sonar-qube:latest
