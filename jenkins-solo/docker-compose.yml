@@ -1,0 +1,13 @@
+version: '3'
+services:
+  jenkins:
+    container_name: jenkins-container
+    image: jenkins/jenkins
+    ports:
+     - "5000:5000"
+     - "8080:8080"
+    volumes:
+     - jenkins-home-compose:/var/jenkins_home
+
+volumes:
+  jenkins-home-compose:
