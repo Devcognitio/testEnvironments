@@ -1,0 +1,36 @@
+version: '3'
+services:
+  jenkins:
+    container_name: jenkins-qiip
+    build: ./jenkins
+    image: jenkins/jenkins
+    ports:
+     - "5000:5000"
+     - "8080:8080"
+    volumes:
+     - jenkins-home-qiip:/var/jenkins_home
+  artifactory:
+    container_name: artifactory-qiip
+    image: docker.bintray.io/jfrog/artifactory-oss
+    ports:
+     - 8081:8081
+    volumes:
+     - artifactory-home-qiip:/var/opt/jfrog/artifactory
+    environment:
+     - EXTRA_JAVA_OPTIONS=-Xms512m -Xmx4g
+    restart: always
+    ulimits:
+      nproc: 65535
+      nofile:
+        soft: 32000
+        hard: 40000
+  sonar:
+    container_name: sonar-qiip
+    image: sonarqube
+    ports:
+     - "9000:9000"
+
+volumes:
+  jenkins-home-qiip:
+  artifactory-home-qiip:
+  
