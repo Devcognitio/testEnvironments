@@ -1,6 +1,0 @@
-blueocean:latest
-nodejs:latest
-artifactory:latest
-sonar-quality-gates:latest
-sonar:latest
-pipeline-utility-steps:latest
