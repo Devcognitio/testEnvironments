@@ -13,7 +13,15 @@ sudo yum update -y
 
 ## Install Jenkins
 sudo yum install jenkins -y
- 
+
+## Docker install
+sudo yum update -y
+sudo amazon-linux-extras install -y docker
+sudo service docker start
+sudo usermod -a -G docker ec2-user
+sudo usermod -a -G docker jenkins
+
+
 ## Start and enable Jenkins service
 sudo systemctl start jenkins
 sudo systemctl enable jenkins
