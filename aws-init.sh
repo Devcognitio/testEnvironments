@@ -1,3 +1,4 @@
+#!/bin/bash
 # Docker install
 sudo yum update -y
 sudo amazon-linux-extras install -y docker

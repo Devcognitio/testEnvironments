@@ -2,6 +2,7 @@ version: '3'
 services:
   jenkins:
     container_name: jenkins-container
+    #build: ./jenkins
     image: jenkins/jenkins:lts-jdk11
     ports:
      - "5001:5000"
@@ -27,6 +28,7 @@ services:
       - postgres
 
   postgres:
+    container_name: postgres-container
     image: postgres
     environment:
       POSTGRES_PASSWORD: sonarqube
@@ -36,12 +38,20 @@ services:
       - postgres-data:/var/lib/postgresql/data
     
   adminer:
+    container_name: adminer-container
     image: adminer
-    restart: always
     ports:
       - 8081:8080
     depends_on:
       - postgres
+
+  chrome:
+    container_name: chrome-container
+    image: selenium/standalone-chrome
+    shm_size: 2gb
+    ports:
+      - 4444:4444
+      - 7900:7900
 
 
 volumes:
