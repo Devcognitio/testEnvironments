@@ -14,6 +14,9 @@ services:
   sonar:
     container_name: sonar-container
     image: sonarqube:lts-community
+    sysctls:
+      vm.max_map_count: 524288
+      fs.file-max: 131072
     ports:
       - "9000:9000"
     volumes:
