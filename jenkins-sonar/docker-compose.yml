@@ -1,0 +1,52 @@
+version: '3'
+services:
+  jenkins:
+    container_name: jenkins-container
+    image: jenkins/jenkins:lts-jdk11
+    ports:
+     - "5001:5000"
+     - "8080:8080"
+     - "50000:50000"
+    volumes:
+     - jenkins-home-compose:/var/jenkins_home
+
+  sonar:
+    container_name: sonar-container
+    image: sonarqube:lts-community
+    ports:
+      - "9000:9000"
+    volumes:
+      - sonar-data:/opt/sonarqube/data
+      - sonar-logs:/opt/sonarqube/logs
+      - sonar-extensions:/opt/sonarqube/extensions
+    environment:
+      - SONAR_JDBC_URL=jdbc:postgresql://postgres/sonarqube
+      - SONAR_JDBC_USERNAME=sonarqube
+      - SONAR_JDBC_PASSWORD=sonarqube
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: sonarqube
+      POSTGRES_USER: sonarqube
+      POSTGRES_DB: sonarqube
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8081:8080
+    depends_on:
+      - postgres
+
+
+volumes:
+  jenkins-home-compose:
+  sonar-data:
+  sonar-logs:
+  sonar-extensions:
+  postgres-data:
