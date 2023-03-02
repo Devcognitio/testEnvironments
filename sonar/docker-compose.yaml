@@ -1,0 +1,33 @@
+version: '3'
+services:
+  sonar:
+    container_name: sonar-container
+    image: sonarqube:lts-community
+    ports:
+     - "9000:9000"
+    environment:
+     - SONAR_JDBC_URL=jdbc:postgresql://postgres:5432/sonarqube
+     - SONAR_JDBC_USERNAME=sonarqube
+     - SONAR_JDBC_PASSWORD=sonarqube
+    volumes:
+     - sonar-data:/opt/sonarqube/data
+     - sonar-logs:/opt/sonarqube/logs
+     - sonar-extension:/opt/sonarqube/extensions
+    depends_on:
+      - postgres
+
+  postgres:
+    container_name: postgres-container
+    image: postgres
+    environment:
+     - POSTGRES_DB=sonarqube
+     - POSTGRES_USER=sonarqube
+     - POSTGRES_PASSWORD=sonarqube
+    volumes:
+     - postgres-data:/var/lib/postgresql/data
+
+volumes:
+  sonar-data:
+  sonar-logs:
+  sonar-extension:
+  postgres-data:
